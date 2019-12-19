@@ -6,10 +6,12 @@ import '@vkontakte/vkui/dist/vkui.css';
 
 import Home from './panels/Home';
 import Persik from './panels/Persik';
+import axios from 'axios';
 
 const App = () => {
 	const [activePanel, setActivePanel] = useState('home');
 	const [fetchedUser, setUser] = useState(null);
+	const [events, setEvents] = useState(null);
 	const [popout, setPopout] = useState(<ScreenSpinner size='large' />);
 
 	useEffect(() => {
@@ -23,9 +25,22 @@ const App = () => {
 		async function fetchData() {
 			const user = await connect.sendPromise('VKWebAppGetUserInfo');
 			setUser(user);
+			console.log(user);
 			setPopout(null);
 		}
 		fetchData();
+		async function getAllEvents() {
+			try {
+				const res = await axios
+					.get("https://companionapp.ru/events", { crossDomain: true });
+				console.log(res.data);
+				return res.data;
+			}
+			catch (error) {
+				console.log("ERROR!", error);
+			}
+		}
+		getAllEvents().then(events => {console.log('BLYAT');console.log(events);setEvents(events)})
 	}, []);
 
 	const go = e => {
@@ -34,7 +49,7 @@ const App = () => {
 
 	return (
 		<View activePanel={activePanel} popout={popout}>
-			<Home id='home' fetchedUser={fetchedUser} go={go} />
+			<Home id='home' fetchedUser={fetchedUser} go={go} events={events} />
 			<Persik id='persik' go={go} />
 		</View>
 	);
