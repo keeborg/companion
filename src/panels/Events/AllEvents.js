@@ -13,34 +13,33 @@ import Avatar from '@vkontakte/vkui/dist/components/Avatar/Avatar'
 import { useState, useEffect } from "react"
 import ScreenSpinner from "@vkontakte/vkui/dist/components/ScreenSpinner/ScreenSpinner"
 import EventListItem from './EventListItem'
-import InfoMessages from '../InfoMessages'
+import InfoMessages from '../../Helpers/InfoMessages'
 
 import '../css/main.css'
-import {useAllEvents, useSearchedEvents} from '../../Helpers/Events/EventServerHooks'
+import { getEvents, getSearchedEvents} from '../../Helpers/Events/EventServerHelper'
 
 const AllEvents = function ({ id, go, fetchedUser }) {
-	const [popout, setPopout] = useState(<ScreenSpinner className="preloader" size="large" />)
+	const [popout, setPopout] = useState(null)
 	const [events, setEvents] = useState([])
 	const [searchQuery, setSearchQuery] = useState('')
 	const [pageNumber, setPageNumber] = useState(1)
 
-	useAllEvents(setEvents, setPopout) // get first new events
+	useEffect(() => {
+		getEvents(pageNumber, setEvents, setPopout)
+	}, [])
 
-	useSearchedEvents(setEvents, setPopout, searchQuery, pageNumber)
+	useEffect(() => {
+		if (searchQuery) {
+			getSearchedEvents(searchQuery, pageNumber, setEvents, setPopout)
+		} else {
+			getEvents(pageNumber, setEvents, setPopout)
+		}
+	}, [searchQuery, pageNumber])
 
+	// for ajax pagination
 	const handleSearch = (searchQuery) => {
 		setSearchQuery(searchQuery)
 		setPageNumber(1)
-	}
-
-	useEffect(() => {
-
-	}, [searchQuery, pageNumber])
-
-	const getFound = () => {
-		const searchText = searchQuery.toLowerCase()
-		//console.log(events)
-		return events.filter( ({ title }) =>  title.toLowerCase().indexOf(searchText) > -1 )
 	}
 
 	return(
@@ -51,35 +50,36 @@ const AllEvents = function ({ id, go, fetchedUser }) {
 			</FixedLayout>
 			{popout}
 			{
-				events &&
 				<List id="event-list">
 					{
-					getFound().length > 0  ? 
-						getFound().map((event, i) => <EventListItem key={event.id} id={event.id} title={event.title} />)
+						events.length > 0
+					?
+						events.map((event, i) => <EventListItem key={event.id} id={event.id} title={event.title} />)
 					:
-						<InfoMessages type="no-events" />
+							<Div className="TODO info message"></Div>
+
 					}
 				</List>
 			}
-			{
-				fetchedUser &&
-				<Group id="user-block">
-					<Cell
-						before={fetchedUser.photo_100 ? <Avatar src={fetchedUser.photo_200}/> : null}
-						description={fetchedUser.city && fetchedUser.city.title ? fetchedUser.city.title : ''}
-					>
-						{`${fetchedUser.first_name} ${fetchedUser.last_name}`}
-					</Cell>
-				</Group>
-			}
+			{/*{*/}
+			{/*	fetchedUser &&*/}
+			{/*	<Group id="user-block">*/}
+			{/*		<Cell*/}
+			{/*			before={fetchedUser.photo_100 ? <Avatar src={fetchedUser.photo_200}/> : null}*/}
+			{/*			description={fetchedUser.city && fetchedUser.city.title ? fetchedUser.city.title : ''}*/}
+			{/*		>*/}
+			{/*			{`${fetchedUser.first_name} ${fetchedUser.last_name}`}*/}
+			{/*		</Cell>*/}
+			{/*	</Group>*/}
+			{/*}*/}
 
-			<Group title="Navigation Example">
-				<Div>
-					<Button size="xl" level="2" onClick={go} data-to="persik">
-						Show me the Persik, please
-					</Button>
-				</Div>
-			</Group>
+			{/*<Group title="Navigation Example">*/}
+			{/*	<Div>*/}
+			{/*		<Button size="xl" level="2" onClick={go} data-to="persik">*/}
+			{/*			Show me the Persik, please*/}
+			{/*		</Button>*/}
+			{/*	</Div>*/}
+			{/*</Group>*/}
 		</Panel>
 	)
 }
@@ -92,9 +92,9 @@ AllEvents.propTypes = {
 		first_name: PropTypes.string,
 		last_name: PropTypes.string,
 		city: PropTypes.shape({
-			title: PropTypes.string,
-		}),
-	}),
+			title: PropTypes.string
+		})
+	})
 }
 
 export default AllEvents
