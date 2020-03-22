@@ -12,12 +12,12 @@ import Icon24List from '@vkontakte/icons/dist/24/list';
 import Icon28Profile from '@vkontakte/icons/dist/28/profile'
 import '@vkontakte/vkui/dist/vkui.css'
 
-import AllEvents from './panels/Events/AllEvents'
+import EventsList from './panels/Events/EventsList'
 import Persik from './panels/Persik'
 
 const App = () => {
-	const [activeStory, setActiveStory] = useState('all-events')
-	const [activePanel, setActivePanel] = useState('all-events')
+	const [activeStory, setActiveStory] = useState('events-list')
+	const [activePanel, setActivePanel] = useState('events-list')
 	// const [fetchedUser, setUser] = useState(null)
 	// const [popout, setPopout] = useState(<ScreenSpinner size='large' />)
 	
@@ -53,8 +53,8 @@ const App = () => {
 			<Tabbar>
 				<TabbarItem
 					onClick={onStoryChange}
-					selected={activeStory === 'all-events'}
-					data-story="all-events"
+					selected={activeStory === 'events-list'}
+					data-story="events-list"
 					text="Все события">
 					<Icon28ArticleOutline />
 				</TabbarItem>
@@ -75,8 +75,8 @@ const App = () => {
 				</TabbarItem>
 			</Tabbar>
 		}>
-			<View id="all-events" activePanel={activePanel}>
-				<AllEvents id='all-events' go={go} />
+			<View id="events-list" activePanel={activePanel}>
+				<EventsList id='events-list' go={go} />
 				<Persik id='persik' go={go} />
 			{/*	TODO Panel with info about one event*/}
 			</View>

@@ -7,8 +7,9 @@ import "../panels/css/info_messages.css"
 const InfoMessages = props => {
     switch (props.type) {
         case 'no-events':
-            {console.log(new Date())}
-            return <Div className="no-events">Результатов нет:(</Div>
+            return <Div className="no-events info-msg">Результатов нет :(</Div>
+        case 'loading':
+            return <Div className="loading info-msg">Загрузка...</Div>
         default:
             return ''
     }

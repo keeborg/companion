@@ -12,35 +12,23 @@ import List from '@vkontakte/vkui/dist/components/List/List'
 import Avatar from '@vkontakte/vkui/dist/components/Avatar/Avatar'
 import { useState, useEffect } from "react"
 import ScreenSpinner from "@vkontakte/vkui/dist/components/ScreenSpinner/ScreenSpinner"
-import EventListItem from './EventListItem'
+import EventsListItem from './EventsListItem'
 import InfoMessages from '../../Helpers/InfoMessages'
 
 import '../css/main.css'
-import { getEvents, getSearchedEvents} from '../../Helpers/Events/EventServerHelper'
+import { useEvents } from './hooks/useEvents'
 
-const AllEvents = function ({ id, go, fetchedUser }) {
-	const [popout, setPopout] = useState(null)
-	const [events, setEvents] = useState([])
+const EventsList = function ({ id, go, fetchedUser }) {
 	const [searchQuery, setSearchQuery] = useState('')
 	const [pageNumber, setPageNumber] = useState(1)
+	const [loading, setLoading] = useState(null)
 
-	useEffect(() => {
-		getEvents(pageNumber, setEvents, setPopout)
-	}, [])
-
-	useEffect(() => {
-		if (searchQuery) {
-			getSearchedEvents(searchQuery, pageNumber, setEvents, setPopout)
-		} else {
-			getEvents(pageNumber, setEvents, setPopout)
-		}
-	}, [searchQuery, pageNumber])
-
-	// for ajax pagination
 	const handleSearch = (searchQuery) => {
 		setSearchQuery(searchQuery)
 		setPageNumber(1)
 	}
+
+	const { events } = useEvents(pageNumber, searchQuery, setLoading);
 
 	return(
 		<Panel id={id}>
@@ -48,19 +36,19 @@ const AllEvents = function ({ id, go, fetchedUser }) {
 			<FixedLayout vertical="top">
 				<Search onChange={handleSearch} />
 			</FixedLayout>
-			{popout}
+			{loading}
 			{
-				<List id="event-list">
+				<List id="events">
 					{
-						events.length > 0
-					?
-						events.map((event, i) => <EventListItem key={event.id} id={event.id} title={event.title} />)
-					:
-							<Div className="TODO info message"></Div>
-
+						(events !== undefined && events.length > 0)
+					&&
+						events.map((event, i) => <EventsListItem key={event.id} id={event.id} title={event.title} />)
 					}
+					{ loading && <Div><InfoMessages type="loading" /></Div> }
+					{ (!loading && (events === undefined || events.length === 0)) && <Div><InfoMessages type="no-events" /></Div> }
 				</List>
 			}
+
 			{/*{*/}
 			{/*	fetchedUser &&*/}
 			{/*	<Group id="user-block">*/}
@@ -84,7 +72,7 @@ const AllEvents = function ({ id, go, fetchedUser }) {
 	)
 }
 
-AllEvents.propTypes = {
+EventsList.propTypes = {
 	id: PropTypes.string.isRequired,
 	go: PropTypes.func.isRequired,
 	fetchedUser: PropTypes.shape({
@@ -97,4 +85,4 @@ AllEvents.propTypes = {
 	})
 }
 
-export default AllEvents
+export default EventsList

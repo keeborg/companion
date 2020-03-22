@@ -1,7 +1,7 @@
-.event-list-item:not(:last-child) {
+.events-item:not(:last-child) {
     border-bottom: 1px solid #dddddd;
 }
 
-#event-list {
+#events {
     padding-top: 3.4em;
 }
