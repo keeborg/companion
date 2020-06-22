@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import connect from '@vkontakte/vk-connect'
+import bridge from '@vkontakte/vk-bridge'
 import View from '@vkontakte/vkui/dist/components/View/View'
 import Panel from '@vkontakte/vkui/dist/components/Panel/Panel'
 import PanelHeader from '@vkontakte/vkui/dist/components/PanelHeader/PanelHeader'
@@ -13,6 +13,8 @@ import Icon28Profile from '@vkontakte/icons/dist/28/profile'
 import '@vkontakte/vkui/dist/vkui.css'
 
 import EventsList from './panels/Events/EventsList'
+import MyEvents from './panels/Events/MyEvents'
+import AddEvent from './panels/Events/AddEvent'
 import Persik from './panels/Persik'
 
 const App = () => {
@@ -22,13 +24,14 @@ const App = () => {
 	// const [popout, setPopout] = useState(<ScreenSpinner size='large' />)
 	
 	useEffect(() => {
-		connect.subscribe(({ detail: { type, data }}) => {
+		bridge.subscribe(({ detail: { type, data }}) => {
 			if (type === 'VKWebAppUpdateConfig') {
 				const schemeAttribute = document.createAttribute('scheme')
 				schemeAttribute.value = data.scheme ? data.scheme : 'client_light'
 				document.body.attributes.setNamedItem(schemeAttribute)
 			}
 		});
+		//console.log(window.location)
 		// async function fetchData() {
 		// 	const user = await connect.sendPromise('VKWebAppGetUserInfo');
 		// 	setUser(user);
@@ -81,9 +84,8 @@ const App = () => {
 			{/*	TODO Panel with info about one event*/}
 			</View>
 			<View id="my-events" activePanel={activePanel}>
-				<Panel id="my-events">
-					<PanelHeader>My Events</PanelHeader>
-				</Panel>
+				<MyEvents id="my-events" go={go} />
+				<AddEvent id="add-event" go={go} />
 			</View>
 			<View id="profile" activePanel={activePanel}>
 				<Panel id="profile">

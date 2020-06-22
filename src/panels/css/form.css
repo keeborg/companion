@@ -1,0 +1,59 @@
+.naked-btn {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background: none;
+}
+
+.dates-horizontal-scroll {
+    display: flex;
+    margin: 10px 15px;
+    overflow: auto;
+}
+
+.date-card {
+    flex-shrink: 0;
+    width: 150px;
+    height: 100px;
+    margin: 5px 10px;
+    border: 1px solid #d7d8da;
+    border-radius: 10px;
+    box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, 0.2);
+}
+
+.date-card-header {
+    overflow: hidden;
+    padding: 5px;
+}
+
+.date-card-header button {
+    float: right;
+    padding-right: 0;
+    color: #818c99;
+}
+
+.date-card-day,
+.date-card-time {
+    text-align: center;
+}
+
+.date-card-bottom {
+    padding: 12px 5px 0 5px;
+}
+
+.date-card-bottom span {
+    float: right;
+    padding: 1px 5px 0 0;
+    font-size: 13px;
+    color: #818c99;
+}
+
+.date-card-bottom button.choose-date-btn {
+    float: left;
+    font-size: 13px;
+    color: #4986CC;
+}
+
+.date-card-bottom button.choose-date-btn:active {
+    color: #3a4d85;
+}

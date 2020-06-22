@@ -13,12 +13,12 @@ import Avatar from '@vkontakte/vkui/dist/components/Avatar/Avatar'
 import { useState, useEffect } from "react"
 import ScreenSpinner from "@vkontakte/vkui/dist/components/ScreenSpinner/ScreenSpinner"
 import EventsListItem from './EventsListItem'
-import InfoMessages from '../../Helpers/InfoMessages'
+import InfoMessages from '../../Helpers/InfoMessages/InfoMessages'
 
 import '../css/main.css'
 import { useEvents } from './hooks/useEvents'
 
-const EventsList = function ({ id, go, fetchedUser }) {
+const EventsList = ({ id, go, fetchedUser }) => {
 	const [searchQuery, setSearchQuery] = useState('')
 	const [pageNumber, setPageNumber] = useState(1)
 	const [loading, setLoading] = useState(null)

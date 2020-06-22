@@ -1,0 +1,212 @@
+#vk-datetime-picker {
+    margin: auto;
+    height: 100%;
+    padding: 5px 15px;
+}
+
+.vdp-wrapper {
+    height: 100%;
+    background-color: #fff;
+}
+
+.vdp-btn,
+.vdp-button:focus,
+.vdp-button:active {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    color: #4986CC;
+}
+
+.vdp-tabs {
+    background-color: #fff;
+    min-height: 80%;
+}
+
+.vdp-tabs-switcher {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.vdp-tabs-switcher .vdp-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 5px 0;
+    background-color: #fff;
+    border: 1px solid #4986CC;
+}
+
+.vdp-tabs-switcher .calendar {
+    border-radius: 8px 0 0 8px;
+}
+
+.vdp-tabs-switcher .time {
+    border-radius: 0 8px 8px 0;
+}
+
+.vdp-tabs-switcher .vdp-btn span {
+    margin-left: 10px;
+    font-size: 17px;
+}
+
+.vdp-tabs-switcher div {
+    width: 10%;
+}
+
+.vdp-tabs-switcher div svg {
+    width: 100%;
+    height: 100%;
+}
+
+.calendar-tab, .time-tab {
+    display: block;
+}
+
+/*============= Year and Month switchers styles ===============*/
+
+#year-switcher,
+#month-switcher {
+    display: flex;
+    justify-content: space-between;
+}
+
+#year-switcher {
+    margin-bottom: 10px;
+}
+
+#year-switcher span,
+#month-switcher span {
+    display: inline-flex;
+    align-items: center;
+    color: #4986CC;
+    font-size: 20px;
+}
+
+#year-switcher svg,
+#month-switcher svg {
+    width: 100%;
+    height: 100%;
+}
+
+#year-switcher button,
+#month-switcher button {
+    width: 38px;
+    display: block;
+    padding: 4px;
+    background-color: transparent;
+}
+
+
+
+/*============= End Of Year and Month switchers styles ===============*/
+
+/*============= Calendar styles ===============*/
+#vdp-calendar {
+    width: 100%;
+    margin: 20px 0 30px 0;
+    /* border-spacing: 10px; */
+    border-collapse: collapse;
+}
+
+thead {
+    font-weight: bold;
+    color: #4986CC;
+}
+
+thead td {
+    text-align: center;
+    font-size: 17px;
+}
+
+#vdp-calendar tbody td {
+    border: 1px solid #4986CC;
+    color: #4986CC;
+    text-align: center;
+    padding: 9px 0 9px 0;
+    font-size: 17px;
+}
+
+#vdp-calendar tbody td.selected {
+    background-color: #4986CC;
+    color: #fff;
+}
+
+#vdp-calendar tbody td.prev-month,
+#vdp-calendar tbody td.next-month {
+    color: #9abce2;
+}
+
+#vdp-calendar tbody td:hover,
+#vdp-calendar tbody td.selected-date {
+    background-color: #4986CC;
+    color: #fff;
+    cursor: pointer;
+}
+
+/*============= End Of Calendar styles ========*/
+
+/*============= Time styles ===============*/
+
+.clock {
+    display: flex;
+    justify-content: center;
+    padding: 30px 0 10px 0;
+}
+
+.clock-block {
+    background-color: #4986CC;
+    color: #fff;
+    font-size: 4em;
+    height: 74px;
+    width: 74px;
+    padding: 2%;
+    border: 1px solid #4986CC;
+    border-radius: 8px;
+    white-space: nowrap;
+}
+
+.clock-separator {
+    color: #4986CC;
+    font-size: 4em;
+}
+
+.slider {
+    display:flex;
+    flex-direction: column;
+}
+
+#hours-slider {
+    padding: 10px 10px 10px 10px;
+}
+
+#minutes-slider {
+    padding: 10px 10px 50px 10px;
+}
+
+.slider label {
+    padding: 0 0 5% 1%;
+    color: #4986CC;
+}
+
+/*============= End Of Time styles ===============*/
+
+#submit-date {
+    width: 100%;
+    font-size: 17px;
+    padding: 7px 0;
+    color: #fff;
+    background-color: #4986CC;
+    border: 1px solid #4986CC;
+    border-radius: 8px;
+}
+
+.active {
+    display: block;
+}
+
+.vdp-btn.active {
+    background-color: #4986CC;
+    color: #fff;
+}
