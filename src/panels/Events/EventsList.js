@@ -15,8 +15,9 @@ import ScreenSpinner from "@vkontakte/vkui/dist/components/ScreenSpinner/ScreenS
 import EventsListItem from './EventsListItem'
 import InfoMessages from '../../Helpers/InfoMessages/InfoMessages'
 
-import '../css/main.css'
-import { useEvents } from './hooks/useEvents'
+import '../css/main.css';
+import { useFetchEvents } from './hooks/useFetchEvents';
+import { useSelector } from 'react-redux';
 
 const EventsList = ({ id, go, fetchedUser }) => {
 	const [searchQuery, setSearchQuery] = useState('')
@@ -24,11 +25,13 @@ const EventsList = ({ id, go, fetchedUser }) => {
 	const [loading, setLoading] = useState(null)
 
 	const handleSearch = (searchQuery) => {
-		setSearchQuery(searchQuery)
-		setPageNumber(1)
+		setSearchQuery(searchQuery);
+		setPageNumber(1);
 	}
 
-	const { events } = useEvents(pageNumber, searchQuery, setLoading);
+	useFetchEvents(pageNumber, searchQuery, setLoading);
+
+	const events = useSelector(state => state.events.events);
 
 	return(
 		<Panel id={id}>
@@ -69,7 +72,7 @@ const EventsList = ({ id, go, fetchedUser }) => {
 			{/*	</Div>*/}
 			{/*</Group>*/}
 		</Panel>
-	)
+	);
 }
 
 EventsList.propTypes = {
@@ -83,6 +86,6 @@ EventsList.propTypes = {
 			title: PropTypes.string
 		})
 	})
-}
+};
 
-export default EventsList
+export default EventsList;

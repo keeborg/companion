@@ -17,7 +17,6 @@ import EventsListItem from './EventsListItem'
 import InfoMessages from '../../Helpers/InfoMessages/InfoMessages'
 
 import '../css/main.css'
-import { useEvents } from './hooks/useEvents'
 
 const MyEvents = ({ id, go }) => {
     const [searchQuery, setSearchQuery] = useState('')
