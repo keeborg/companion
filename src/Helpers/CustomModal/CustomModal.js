@@ -25,7 +25,7 @@ const CustomModal = (props) => {
                 <div className="custom-modal-wrapper" onClick={(e) => handleClose(e)}>
                     <div className="custom-modal">
                         <div className="custom-modal-header">
-                            <button className="confirm" onClick={(e) => handleClose(e)}>Готово</button>
+                            <button className="confirm" onClick={(e) => handleClose(e)}>Закрыть</button>
                         </div>
                         <div className="custom-modal-content">
                             <div style={{position: 'relative'}}>
